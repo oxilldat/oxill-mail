@@ -1,4 +1,4 @@
-import { App, Modal, Notice, PluginSettingTab, Setting, setIcon } from "obsidian";
+import { App, Modal, Notice, PluginSettingTab, Setting, setIcon, type SettingDefinitionItem } from "obsidian";
 
 import type OxillMailPlugin from "./main";
 import { t } from "./i18n";
@@ -9,9 +9,19 @@ export const DEFAULT_SETTINGS: OxillMailSettings = { language: "ru", accounts: [
 export class MailSettingTab extends PluginSettingTab {
   constructor(app: App, private readonly mailPlugin: OxillMailPlugin) { super(app, mailPlugin); }
 
-  display(): void {
-    const { containerEl } = this;
-    containerEl.empty();
+  getSettingDefinitions(): SettingDefinitionItem[] {
+    return [{
+      name: t("Настройки Oxill Mail", "Oxill Mail settings"),
+      desc: t("Почтовые аккаунты и поведение синхронизации.", "Mail accounts and synchronization behavior."),
+      aliases: ["IMAP", "SMTP", t("Почта", "Mail")],
+      render: (setting) => {
+        setting.settingEl.empty();
+        this.renderSettings(setting.settingEl);
+      },
+    }];
+  }
+
+  private renderSettings(containerEl: HTMLElement): void {
     containerEl.addClass("oxm-settings");
 
     new Setting(containerEl).setName(t("Почтовые аккаунты", "Mail accounts"))
@@ -28,7 +38,7 @@ export class MailSettingTab extends PluginSettingTab {
         .setValue(this.mailPlugin.settings.language).onChange(async (value) => {
           this.mailPlugin.settings.language = value === "en" ? "en" : "ru";
           await this.mailPlugin.saveSettings();
-          this.display();
+          this.update();
         }));
     new Setting(containerEl).setName(t("Резервная проверка почты", "Fallback mail check"))
       .setDesc(t("Страховочная синхронизация, если сервер не прислал событие IMAP IDLE.", "Fallback sync when the server misses an IMAP IDLE event."))
@@ -68,14 +78,7 @@ export class MailSettingTab extends PluginSettingTab {
     });
     status.createSpan({ cls: "oxm-account-status-dot" });
     status.createSpan({ text: this.stateLabel(state, account.enabled) });
-    status.addEventListener("click", async () => {
-      status.disabled = true;
-      const enabling = !account.enabled;
-      account.enabled = enabling;
-      await this.mailPlugin.saveSettings();
-      await this.mailPlugin.restartMailService(enabling ? () => this.display() : undefined);
-      this.display();
-    });
+    status.addEventListener("click", () => void this.toggleAccount(status, account));
     const meta = card.createDiv({ cls: "oxm-account-meta" });
     this.metaItem(meta, "server", "IMAP", `${account.imapHost.trim()}:${account.imapPort}`);
     this.metaItem(meta, "send", "SMTP", `${account.smtpHost.trim()}:${account.smtpPort}`);
@@ -88,8 +91,18 @@ export class MailSettingTab extends PluginSettingTab {
       this.mailPlugin.settings.accounts = this.mailPlugin.settings.accounts.filter((item) => item.id !== account.id);
       await this.mailPlugin.saveSettings();
       await this.mailPlugin.restartMailService();
-      this.display();
+      this.update();
     }).open());
+  }
+
+  private async toggleAccount(status: HTMLButtonElement, account: MailAccount): Promise<void> {
+    try {
+      status.disabled = true;
+      const enabling = !account.enabled;
+      account.enabled = enabling;
+      await this.mailPlugin.saveSettings();
+      await this.mailPlugin.restartMailService(enabling ? () => this.update() : undefined);
+    } finally { this.update(); }
   }
 
   private metaItem(container: HTMLElement, iconName: string, label: string, value: string): void {
@@ -107,7 +120,7 @@ export class MailSettingTab extends PluginSettingTab {
       else this.mailPlugin.settings.accounts.push(next);
       await this.mailPlugin.saveSettings();
       await this.mailPlugin.restartMailService();
-      this.display();
+      this.update();
     }).open();
   }
 

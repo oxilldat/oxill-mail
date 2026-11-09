@@ -1,9 +1,9 @@
 {
   "id": "oxill-mail",
   "name": "Oxill Mail",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minAppVersion": "1.13.0",
-  "description": "Experimental desktop IMAP and SMTP email client for Obsidian.",
+  "description": "Experimental desktop IMAP and SMTP email client.",
   "author": "Oxill",
   "authorUrl": "https://t.me/oxilldat",
   "fundingUrl": "https://boosty.to/oxilldat",

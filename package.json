@@ -1,6 +1,6 @@
 {
   "name": "oxill-mail",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An experimental local-first desktop email client for Obsidian.",
   "private": true,
   "type": "module",

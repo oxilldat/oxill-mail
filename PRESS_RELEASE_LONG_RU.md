@@ -38,4 +38,4 @@ Oxill Mail 0.1.0 — не обещание готовой замены прив�
 ## Где скачать
 
 - Репозиторий и установка через BRAT: https://github.com/oxilldat/oxill-mail
-- Early Access 0.1.0: https://github.com/oxilldat/oxill-mail/releases/tag/0.1.0
+- Актуальный Early Access: https://github.com/oxilldat/oxill-mail/releases/tag/0.1.1

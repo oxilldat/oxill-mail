@@ -438,7 +438,7 @@ export class MailModal extends Modal {
       if (!reader || !loading) return;
       this.loadedMessages.set(message.id, full);
       while (this.loadedMessages.size > 20) {
-        const oldest = this.loadedMessages.keys().next().value as string | undefined;
+        const oldest = this.loadedMessages.keys().next().value;
         if (!oldest) break;
         this.loadedMessages.delete(oldest);
       }
@@ -475,7 +475,7 @@ export class MailModal extends Modal {
       const total = progress.totalBytes ?? 0;
       detail.setText(total > 0 ? `${this.formatBytes(loaded)} ${t("из", "of")} ${this.formatBytes(total)}` : this.formatBytes(loaded));
       track.removeClass("is-indeterminate");
-      value.style.width = total > 0 ? `${Math.min(100, loaded / total * 100)}%` : "15%";
+      value.setCssStyles({ width: total > 0 ? `${Math.min(100, loaded / total * 100)}%` : "15%" });
       return;
     }
     if (progress.stage === "parsing") {
@@ -487,7 +487,7 @@ export class MailModal extends Modal {
     status.setText(t("Готово", "Ready"));
     detail.empty();
     track.removeClass("is-indeterminate");
-    value.style.width = "100%";
+    value.setCssStyles({ width: "100%" });
   }
 
   private formatBytes(bytes: number): string {
@@ -499,11 +499,11 @@ export class MailModal extends Modal {
   private renderAvatar(container: HTMLElement, email: string, name: string, compact: boolean): HTMLElement {
     const resolved = this.avatars.resolve(email, name);
     const avatar = container.createSpan({ cls: `oxm-avatar ${compact ? "is-compact" : ""}`, text: resolved.imageUrl ? "" : resolved.initial });
-    avatar.style.backgroundColor = resolved.color;
+    avatar.setCssStyles({ backgroundColor: resolved.color });
     if (resolved.imageUrl) {
       const image = avatar.createEl("img", { attr: { src: resolved.imageUrl, alt: "" } });
-      if (resolved.imagePosition) image.style.objectPosition = resolved.imagePosition;
-      if (resolved.imageScale && resolved.imageScale !== 1) image.style.transform = `scale(${resolved.imageScale})`;
+      if (resolved.imagePosition) image.setCssStyles({ objectPosition: resolved.imagePosition });
+      if (resolved.imageScale && resolved.imageScale !== 1) image.setCssStyles({ transform: `scale(${resolved.imageScale})` });
     }
     return avatar;
   }
@@ -522,7 +522,7 @@ export class MailModal extends Modal {
         const contentId = src.slice(4).replace(/^<|>$/g, "");
         const attachment = message.attachments.find((item) => item.contentId?.replace(/^<|>$/g, "") === contentId);
         if (attachment) {
-          const url = URL.createObjectURL(new Blob([attachment.content.slice().buffer as ArrayBuffer], { type: attachment.contentType }));
+          const url = URL.createObjectURL(new Blob([attachment.content.slice().buffer], { type: attachment.contentType }));
           this.objectUrls.push(url);
           image.setAttribute("src", url);
         }
@@ -589,7 +589,7 @@ export class MailModal extends Modal {
     const extension = dot > 0 ? filename.slice(dot) : "";
     let suffix = 2;
     while (this.app.vault.getAbstractFileByPath(path)) path = normalizePath(`${folder}/${stem} ${suffix++}${extension}`);
-    await this.app.vault.createBinary(path, attachment.content.slice().buffer as ArrayBuffer);
+    await this.app.vault.createBinary(path, attachment.content.slice().buffer);
     new Notice(`${t("Вложение сохранено", "Attachment saved")}: ${path}`);
   }
 

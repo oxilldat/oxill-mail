@@ -72,7 +72,7 @@ export class MailCache {
         if (!database.objectStoreNames.contains("messages")) database.createObjectStore("messages", { keyPath: "key" });
       };
       request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
+      request.onerror = () => reject(this.requestError(request.error));
     });
     return this.database;
   }
@@ -82,7 +82,7 @@ export class MailCache {
     return new Promise((resolve, reject) => {
       const request = database.transaction(storeName, "readonly").objectStore(storeName).get(key);
       request.onsuccess = () => resolve(request.result as T | undefined);
-      request.onerror = () => reject(request.error);
+      request.onerror = () => reject(this.requestError(request.error));
     });
   }
 
@@ -91,7 +91,7 @@ export class MailCache {
     return new Promise((resolve, reject) => {
       const request = database.transaction(storeName, "readonly").objectStore(storeName).getAll();
       request.onsuccess = () => resolve(request.result as T[]);
-      request.onerror = () => reject(request.error);
+      request.onerror = () => reject(this.requestError(request.error));
     });
   }
 
@@ -100,7 +100,7 @@ export class MailCache {
     await new Promise<void>((resolve, reject) => {
       const request = database.transaction(storeName, "readwrite").objectStore(storeName).put(value);
       request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
+      request.onerror = () => reject(this.requestError(request.error));
     });
   }
 
@@ -109,7 +109,11 @@ export class MailCache {
     await new Promise<void>((resolve, reject) => {
       const request = database.transaction(storeName, "readwrite").objectStore(storeName).delete(key);
       request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
+      request.onerror = () => reject(this.requestError(request.error));
     });
+  }
+
+  private requestError(error: DOMException | null): Error {
+    return error ?? new Error("IndexedDB request failed");
   }
 }

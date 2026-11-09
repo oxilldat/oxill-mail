@@ -30,9 +30,9 @@ export default class OxillMailPlugin extends Plugin {
     });
   }
 
-  async onunload(): Promise<void> {
+  onunload(): void {
     if (this.fallbackTimer !== undefined) window.clearInterval(this.fallbackTimer);
-    await this.service.stop();
+    void this.service.stop();
   }
 
   async saveSettings(): Promise<void> {

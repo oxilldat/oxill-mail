@@ -1,8 +1,10 @@
-# Oxill Mail 0.1.0 — Early Access
+# Oxill Mail 0.1.1 — Early Access
 
 Oxill Mail brings a direct IMAP and SMTP mail client into Obsidian. The first public build can read, write, reply, forward, organize, and locally cache mail without an external proxy or telemetry service.
 
 This release is intentionally marked **Early Access**. It is functional, but still raw: provider compatibility is incomplete, some workflows need refinement, and IMAP edge cases may produce unexpected behavior. Use a non-critical mailbox for initial testing and verify destructive actions in another client.
+
+Version 0.1.1 also resolves the manifest, source, lifecycle, settings API, CSS, and type-safety findings reported during community-plugin submission scanning.
 
 ## Highlights
 

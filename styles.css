@@ -101,6 +101,7 @@
 .oxm-empty p { max-width: 420px; }
 .oxm-list-empty { padding: 24px 16px; color: var(--text-muted); text-align: center; }
 .oxm-settings { --oxm-settings-border: var(--background-modifier-border); }
+.oxm-settings.setting-item { display: block; padding: 0; border-top: 0; }
 .oxm-account-empty p { margin: 3px 0 0; color: var(--text-muted); line-height: 1.45; }
 .oxm-account-list { display: grid; gap: 10px; margin: 10px 0 30px; }
 .oxm-account-card { overflow: hidden; border: 1px solid var(--oxm-settings-border); border-radius: var(--radius-l); background: var(--background-primary-alt); transition: border-color 120ms ease, box-shadow 120ms ease; }
@@ -141,7 +142,7 @@
 .oxm-form-error.is-visible { display: block; }
 .oxm-account-modal .setting-item-control input[type="text"], .oxm-account-modal .setting-item-control input[type="email"] { min-width: 250px; }
 .oxm-server-row .setting-item-control { display: grid; grid-template-columns: minmax(180px, 1fr) 82px; gap: 7px; }
-.oxm-server-row .setting-item-control input { width: 100%; min-width: 0 !important; }
+.oxm-account-modal .oxm-server-row .setting-item-control input { width: 100%; min-width: 0; }
 .oxm-server-row .setting-item-control input[type="number"] { text-align: center; }
 .oxm-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin: 18px 0 0; padding: 14px 0 0; border-top: 1px solid var(--background-modifier-border); }
 .modal.oxm-compose-modal { width: min(700px, calc(100vw - 48px)); --modal-width: 700px; }
@@ -205,4 +206,4 @@
 .oxm-bottom-bar { min-height: 50px; flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 7px 14px; border-top: 1px solid var(--oxm-border); background: var(--background-primary); }
 @media (max-width: 900px) { .oxm-layout { grid-template-columns: 170px minmax(260px, 1fr); } .oxm-reader { display: none; } }
 @media (max-width: 600px) { .oxm-account-meta { grid-template-columns: 1fr; } .oxm-account-status { display: none; } .oxm-modal-actions { padding-inline: 16px; } .oxm-folder-manager-intro { align-items: flex-start; flex-direction: column; gap: 12px; } .oxm-folder-manager-row { grid-template-columns: 34px minmax(0, 1fr) 32px; } .oxm-folder-visibility { grid-column: 2 / 4; grid-row: 2; justify-self: start; } }
-@media (prefers-reduced-motion: reduce) { .oxm-reader-progress-value, .oxm-skeleton-line, .oxm-reader-spinner { animation: none !important; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .oxm-reader-progress-value, .oxm-skeleton-line, .oxm-reader-spinner { animation: none; transition: none; } }

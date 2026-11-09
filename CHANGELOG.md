@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 — Submission fixes
+
+- Removed the redundant product name from the manifest description.
+- Replaced direct style assignments with Obsidian CSS helpers.
+- Adopted the Obsidian 1.13 declarative settings API.
+- Fixed popout-compatible timers, typed IMAP chunks, IndexedDB errors, and plugin unload behavior.
+- Removed unnecessary type assertions and `!important` declarations reported by the community-plugin scanner.
+
 ## 0.1.0 — Early Access
 
 First public experimental build of Oxill Mail.

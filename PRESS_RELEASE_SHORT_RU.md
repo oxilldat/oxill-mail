@@ -10,4 +10,4 @@
 
 Репозиторий и установка через BRAT: https://github.com/oxilldat/oxill-mail
 
-Релиз 0.1.0: https://github.com/oxilldat/oxill-mail/releases/tag/0.1.0
+Актуальный релиз: https://github.com/oxilldat/oxill-mail/releases/tag/0.1.1

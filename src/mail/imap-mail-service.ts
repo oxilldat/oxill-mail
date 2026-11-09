@@ -12,7 +12,7 @@ interface AccountRuntime {
   client: ImapFlow;
   snapshot: AccountSnapshot;
   stopping: boolean;
-  reconnectTimer?: ReturnType<typeof setTimeout>;
+  reconnectTimer?: number;
   messagesByMailbox: Map<string, MailMessageSummary[]>;
   messageCache: Map<string, MailMessage>;
   mailboxSyncs: Map<string, Promise<void>>;
@@ -38,7 +38,7 @@ export class ImapMailService implements MailService {
   async stop(): Promise<void> {
     await Promise.all([...this.runtimes.values()].map(async (runtime) => {
       runtime.stopping = true;
-      if (runtime.reconnectTimer) clearTimeout(runtime.reconnectTimer);
+      if (runtime.reconnectTimer) window.clearTimeout(runtime.reconnectTimer);
       try { await runtime.client.logout(); } catch { runtime.client.close(); }
     }));
     this.runtimes.clear();
@@ -106,8 +106,16 @@ export class ImapMailService implements MailService {
       let lastReportedBytes = 0;
       const totalBytes = download.meta.expectedSize;
       onProgress?.({ stage: "downloading", loadedBytes, totalBytes });
-      for await (const chunk of download.content) {
-        const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+      for await (const rawChunk of download.content) {
+        const chunk: unknown = rawChunk;
+        const buffer = Buffer.isBuffer(chunk)
+          ? chunk
+          : chunk instanceof Uint8Array
+            ? Buffer.from(chunk.buffer, chunk.byteOffset, chunk.byteLength)
+            : typeof chunk === "string"
+              ? Buffer.from(chunk)
+              : undefined;
+        if (!buffer) throw new Error("Почтовый сервер вернул неизвестный формат данных");
         chunks.push(buffer);
         loadedBytes += buffer.length;
         if (loadedBytes - lastReportedBytes >= 64 * 1024 || loadedBytes >= totalBytes) {
@@ -268,9 +276,9 @@ export class ImapMailService implements MailService {
 
   on<K extends keyof MailServiceEvents>(event: K, listener: MailServiceEvents[K]): () => void {
     const set = this.listeners.get(event) ?? new Set<Listener>();
-    set.add(listener as Listener);
+    set.add(listener);
     this.listeners.set(event, set);
-    return () => set.delete(listener as Listener);
+    return () => set.delete(listener);
   }
 
   private async connect(account: MailAccount): Promise<void> {
@@ -422,7 +430,7 @@ export class ImapMailService implements MailService {
 
   private scheduleReconnect(runtime: AccountRuntime): void {
     if (runtime.stopping || runtime.reconnectTimer) return;
-    runtime.reconnectTimer = setTimeout(() => {
+    runtime.reconnectTimer = window.setTimeout(() => {
       runtime.reconnectTimer = undefined;
       this.runtimes.delete(runtime.snapshot.account.id);
       void this.connect(runtime.snapshot.account);
@@ -590,7 +598,7 @@ export class ImapMailService implements MailService {
   private cacheMessage(runtime: AccountRuntime, key: string, message: MailMessage): void {
     runtime.messageCache.set(key, message);
     while (runtime.messageCache.size > 20) {
-      const oldest = runtime.messageCache.keys().next().value as string | undefined;
+      const oldest = runtime.messageCache.keys().next().value;
       if (!oldest) break;
       runtime.messageCache.delete(oldest);
     }

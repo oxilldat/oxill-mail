@@ -43,7 +43,7 @@ Install with BRAT:
 
 Manual installation:
 
-1. Download the archive from the [0.1.0 Early Access release](https://github.com/oxilldat/oxill-mail/releases/tag/0.1.0).
+1. Download the archive from the [0.1.1 Early Access release](https://github.com/oxilldat/oxill-mail/releases/tag/0.1.1).
 2. Extract `main.js`, `manifest.json`, and `styles.css` into `<vault>/.obsidian/plugins/oxill-mail/`.
 3. Restart Obsidian or reload community plugins.
 4. Enable **Oxill Mail** under **Settings → Community plugins**.
