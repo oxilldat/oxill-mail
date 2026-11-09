@@ -1,0 +1,208 @@
+.oxm-root { --oxm-border: var(--background-modifier-border); height: 100%; display: flex; flex-direction: column; color: var(--text-normal); background: var(--background-primary); }
+.oxm-toolbar { height: 58px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--oxm-border); flex: 0 0 auto; }
+.oxm-title, .oxm-toolbar-actions, .oxm-message-top, .oxm-reader-sender, .oxm-state, .oxm-folder { display: flex; align-items: center; }
+.oxm-title { gap: 10px; font-size: 17px; font-weight: 650; }
+.oxm-logo { display: inline-flex; color: var(--interactive-accent); }
+.oxm-toolbar-actions { gap: 8px; }
+.oxm-compose { padding: 6px 15px; }
+.oxm-layout { min-height: 0; flex: 1; display: grid; grid-template-columns: minmax(210px, 238px) minmax(350px, 410px) minmax(440px, 1fr); }
+.oxm-sidebar, .oxm-list-column { min-width: 0; border-right: 1px solid var(--oxm-border); }
+.oxm-sidebar { padding: 14px 10px; background: var(--background-secondary); }
+.oxm-account-select { width: 100%; min-height: 38px; margin-bottom: 8px; }
+.oxm-state { gap: 7px; padding: 4px 8px 13px; color: var(--text-muted); font-size: 12px; }
+.oxm-state-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); }
+.oxm-state.is-online .oxm-state-dot { background: var(--color-green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-green) 16%, transparent); }
+.oxm-state.is-error .oxm-state-dot { background: var(--color-red); }
+.oxm-folder-header { min-height: 30px; display: flex; align-items: center; justify-content: space-between; padding: 0 8px; color: var(--text-muted); font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; }
+.oxm-folder-header .clickable-icon { width: 28px; height: 28px; }
+.oxm-folders { display: grid; gap: 2px; }
+.oxm-root .oxm-folder { position: relative; width: 100%; gap: 10px; min-height: 34px; padding: 0 9px; border: 0; border-radius: var(--radius-s); color: var(--text-muted); background: transparent; box-shadow: none; appearance: none; cursor: pointer; text-align: left; }
+.oxm-root .oxm-folder:hover { color: var(--text-normal); background: var(--background-modifier-hover); box-shadow: none; }
+.oxm-root .oxm-folder.is-active { color: var(--text-normal); background: color-mix(in srgb, var(--interactive-accent) 13%, transparent); box-shadow: none; font-weight: 600; }
+.oxm-root .oxm-folder.is-active::before { content: ""; position: absolute; left: 0; top: 7px; bottom: 7px; width: 3px; border-radius: 0 3px 3px 0; background: var(--interactive-accent); }
+.oxm-folder-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.oxm-count { min-width: 20px; padding: 1px 6px; border-radius: 10px; text-align: center; color: var(--text-on-accent); background: var(--interactive-accent); font-size: 11px; }
+.oxm-list-column { display: flex; flex-direction: column; min-height: 0; background: var(--background-primary); }
+.oxm-list-header { min-height: 54px; padding: 14px 16px 6px; display: flex; align-items: center; justify-content: space-between; }
+.oxm-list-header h2 { margin: 0; font-size: 18px; line-height: 1.2; }
+.oxm-list-header span { color: var(--text-muted); font-size: 12px; }
+.oxm-mailbox-loading { display: inline-flex; align-items: center; gap: 6px; }
+.oxm-mailbox-loading .oxm-reader-spinner { width: 11px; height: 11px; }
+.oxm-search { min-height: 36px; margin: 4px 12px 12px; width: calc(100% - 24px); border-radius: var(--radius-m); }
+.oxm-list-filters { display: flex; align-items: center; gap: 5px; padding: 0 12px 10px; overflow-x: auto; }
+.oxm-list-filters button { flex: 0 0 auto; min-height: 27px; padding: 3px 8px; border: 0; border-radius: 999px; color: var(--text-muted); background: var(--background-secondary); box-shadow: none; font-size: var(--font-ui-smaller); }
+.oxm-list-filters button:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.oxm-list-filters button.is-active { color: var(--text-on-accent); background: var(--interactive-accent); }
+.oxm-bulk-toolbar { display: flex; align-items: center; gap: 3px; min-height: 40px; padding: 5px 10px; border-top: 1px solid var(--oxm-border); background: var(--background-secondary); }
+.oxm-bulk-selection-menu { display: inline-flex; align-items: center; justify-content: space-between; gap: 5px; min-width: 92px; min-height: 28px; margin-right: auto; padding: 3px 7px; color: var(--text-muted); background: transparent; box-shadow: none; font-size: var(--font-ui-smaller); }
+.oxm-bulk-selection-menu:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.oxm-bulk-selection-menu svg { width: 14px; height: 14px; }
+.oxm-bulk-toolbar .clickable-icon { width: 28px; height: 28px; }
+.oxm-message-list { min-height: 0; flex: 1; overflow: auto; }
+.oxm-message-skeleton { min-height: 76px; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--oxm-border); }
+.oxm-skeleton-line { width: 78%; height: 9px; border-radius: 999px; background: linear-gradient(90deg, var(--background-secondary) 25%, var(--background-modifier-hover) 50%, var(--background-secondary) 75%); background-size: 200% 100%; animation: oxm-skeleton 1.2s ease-in-out infinite; }
+.oxm-skeleton-line.is-short { width: 38%; height: 11px; }
+.oxm-skeleton-line.is-medium { width: 58%; }
+@keyframes oxm-skeleton { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.oxm-message { position: relative; min-height: 76px; padding: 12px 14px 12px 17px; border-top: 1px solid var(--oxm-border); cursor: default; transition: background-color 100ms ease; }
+.oxm-message:hover { background: var(--background-modifier-hover); }
+.oxm-message.is-selected { background: color-mix(in srgb, var(--interactive-accent) 9%, transparent); }
+.oxm-message.is-checked { background: color-mix(in srgb, var(--interactive-accent) 6%, transparent); }
+.oxm-load-more { display: flex; align-items: center; justify-content: center; gap: 7px; width: calc(100% - 20px); min-height: 38px; margin: 10px; color: var(--text-muted); background: var(--background-secondary); box-shadow: none; }
+.oxm-load-more:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.oxm-load-more svg { width: 16px; height: 16px; }
+.oxm-message.is-selected::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 2px; background: var(--interactive-accent); }
+.oxm-message.is-unread::before { content: ""; position: absolute; left: 6px; top: 19px; width: 5px; height: 5px; border-radius: 50%; background: var(--interactive-accent); }
+.oxm-message-top { gap: 8px; }
+.oxm-message-check { width: 15px; height: 15px; flex: 0 0 auto; margin: 0; }
+.oxm-message-flag { width: 24px; height: 24px; flex: 0 0 auto; color: var(--text-faint); }
+.oxm-message-flag.is-active, .oxm-reader-toolbar .is-active { color: var(--color-yellow); }
+.oxm-message-flag.is-active svg, .oxm-reader-toolbar .is-active svg { fill: currentColor; }
+.oxm-sender { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oxm-message.is-unread .oxm-sender, .oxm-message.is-unread .oxm-subject { font-weight: 650; }
+.oxm-date { color: var(--text-muted); font-size: 11px; }
+.oxm-subject, .oxm-preview { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.oxm-subject { margin-top: 4px; font-size: 13px; }
+.oxm-preview { margin-top: 3px; color: var(--text-muted); font-size: 12px; }
+.oxm-reader { min-width: 0; padding: 24px 30px; overflow: auto; background: var(--background-primary); }
+.oxm-reader-toolbar { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin: -12px 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--oxm-border); }
+.oxm-reader h1 { margin: 0 0 20px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.25; }
+.oxm-reader-sender { gap: 10px; padding-bottom: 18px; border-bottom: 1px solid var(--oxm-border); }
+.oxm-avatar { width: 36px; height: 36px; flex: 0 0 auto; overflow: hidden; border-radius: 50%; display: grid; place-items: center; color: white; background: var(--interactive-accent); font-weight: 700; }
+.oxm-avatar.is-compact { width: 24px; height: 24px; font-size: 11px; }
+.oxm-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.oxm-reader-name { font-weight: 600; }
+.oxm-reader-address, .oxm-reader-date, .oxm-reader-loading { color: var(--text-muted); font-size: 12px; }
+.oxm-reader-date { margin-left: auto; }
+.oxm-reader-loading { display: grid; grid-template-columns: 18px minmax(0, 1fr); align-items: center; gap: 6px 10px; max-width: 440px; padding: 24px 0 4px; }
+.oxm-reader-loading-copy { min-width: 0; }
+.oxm-reader-loading-status { color: var(--text-normal); font-size: var(--font-ui-small); font-weight: 600; }
+.oxm-reader-loading-detail { margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); font-size: var(--font-ui-smaller); }
+.oxm-reader-progress { position: relative; grid-column: 2; height: 4px; overflow: hidden; border-radius: 999px; background: var(--background-secondary); }
+.oxm-reader-progress-value { width: 0; height: 100%; border-radius: inherit; background: var(--interactive-accent); transition: width 120ms ease; }
+.oxm-reader-progress.is-indeterminate .oxm-reader-progress-value { width: 38%; animation: oxm-progress 1.1s ease-in-out infinite; }
+@keyframes oxm-progress { from { transform: translateX(-110%); } to { transform: translateX(290%); } }
+.oxm-reader-loading.is-error { color: var(--text-error); }
+.oxm-reader-spinner { width: 14px; height: 14px; border: 2px solid var(--background-modifier-border); border-right-color: var(--interactive-accent); border-radius: 50%; animation: oxm-status-spin .75s linear infinite; }
+.oxm-reader-body { margin: 24px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.6; color: var(--text-normal); background: none; border: 0; padding: 0; }
+.oxm-reader-html { white-space: normal; }
+.oxm-reader-html img:not([src]) { display: none; }
+.oxm-reader-html img { max-width: 100%; height: auto; }
+.oxm-remote-images { display: flex; align-items: center; gap: 9px; margin-top: 18px; padding: 9px 11px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-s); color: var(--text-muted); background: var(--background-secondary); font-size: var(--font-ui-small); }
+.oxm-remote-images > svg { width: 17px; height: 17px; flex: 0 0 auto; }
+.oxm-remote-images > span:nth-child(2) { flex: 1; }
+.oxm-empty, .oxm-reader-empty { height: 100%; display: grid; place-content: center; justify-items: center; text-align: center; color: var(--text-muted); }
+.oxm-empty svg { width: 42px; height: 42px; stroke-width: 1.3; }
+.oxm-reader-empty-icon { width: 62px; height: 62px; display: grid; place-items: center; border: 1px solid var(--background-modifier-border); border-radius: 18px; color: var(--text-muted); background: var(--background-secondary); }
+.oxm-reader-empty-icon svg { width: 30px; height: 30px; stroke-width: 1.5; }
+.oxm-reader-empty h3 { margin: 16px 0 4px; color: var(--text-normal); font-size: 17px; }
+.oxm-reader-empty p { margin: 0; font-size: var(--font-ui-small); }
+.oxm-empty h2 { color: var(--text-normal); margin: 14px 0 4px; }
+.oxm-empty p { max-width: 420px; }
+.oxm-list-empty { padding: 24px 16px; color: var(--text-muted); text-align: center; }
+.oxm-settings { --oxm-settings-border: var(--background-modifier-border); }
+.oxm-account-empty p { margin: 3px 0 0; color: var(--text-muted); line-height: 1.45; }
+.oxm-account-list { display: grid; gap: 10px; margin: 10px 0 30px; }
+.oxm-account-card { overflow: hidden; border: 1px solid var(--oxm-settings-border); border-radius: var(--radius-l); background: var(--background-primary-alt); transition: border-color 120ms ease, box-shadow 120ms ease; }
+.oxm-account-card:hover { border-color: var(--background-modifier-border-hover); box-shadow: var(--shadow-s); }
+.oxm-account-identity { display: flex; align-items: center; gap: 12px; padding: 16px 16px 12px; }
+.oxm-account-avatar { width: 38px; height: 38px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 11px; color: var(--text-on-accent); background: var(--interactive-accent); font-weight: 700; }
+.oxm-account-copy { min-width: 0; flex: 1; }
+.oxm-account-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 650; }
+.oxm-account-email { margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); font-size: var(--font-ui-small); }
+.oxm-account-status { display: inline-flex; align-items: center; gap: 7px; min-height: 0; padding: 4px 9px; border: 0; border-radius: 999px; color: var(--text-muted); background: var(--background-secondary); box-shadow: none; font-size: var(--font-ui-smaller); white-space: nowrap; cursor: pointer; }
+.oxm-account-status:hover { background: var(--background-modifier-hover); box-shadow: none; }
+.oxm-account-status:focus-visible { box-shadow: 0 0 0 2px var(--background-modifier-border-focus); }
+.oxm-account-status:disabled { cursor: wait; opacity: .7; }
+.oxm-account-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-faint); }
+.oxm-account-status.is-online { color: var(--color-green); background: color-mix(in srgb, var(--color-green) 10%, transparent); }
+.oxm-account-status.is-online .oxm-account-status-dot { background: var(--color-green); }
+.oxm-account-status.is-connecting { color: var(--color-yellow); background: color-mix(in srgb, var(--color-yellow) 10%, transparent); }
+.oxm-account-status.is-connecting .oxm-account-status-dot { width: 10px; height: 10px; border: 2px solid currentColor; border-right-color: transparent; background: transparent; animation: oxm-status-spin .75s linear infinite; }
+.oxm-account-status.is-error { color: var(--color-red); background: color-mix(in srgb, var(--color-red) 10%, transparent); }
+.oxm-account-status.is-error .oxm-account-status-dot { background: var(--color-red); }
+.oxm-account-status.is-disabled { color: var(--text-faint); }
+@keyframes oxm-status-spin { to { transform: rotate(360deg); } }
+.oxm-account-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 0 16px 14px; }
+.oxm-account-meta-item { min-width: 0; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: var(--radius-s); color: var(--text-muted); background: var(--background-secondary); }
+.oxm-account-meta-item > svg { width: 15px; height: 15px; flex: 0 0 auto; }
+.oxm-account-meta-item > div { min-width: 0; display: flex; flex-direction: column; }
+.oxm-account-meta-label { font-size: 10px; font-weight: 650; letter-spacing: .04em; }
+.oxm-account-meta-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-normal); font-size: var(--font-ui-smaller); }
+.oxm-account-actions { min-height: 44px; display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 7px 10px; border-top: 1px solid var(--oxm-settings-border); background: var(--background-secondary-alt); }
+.oxm-account-empty { display: grid; justify-items: center; padding: 28px 18px; border: 1px dashed var(--oxm-settings-border); border-radius: var(--radius-l); text-align: center; }
+.oxm-account-empty > svg { width: 28px; height: 28px; margin-bottom: 9px; color: var(--text-muted); }
+.oxm-account-empty-title { font-weight: 650; }
+.modal.oxm-account-modal { width: min(620px, calc(100vw - 48px)); max-width: calc(100vw - 48px); --modal-width: 620px; }
+.oxm-account-modal .modal-header { padding-bottom: 8px; }
+.oxm-account-modal .modal-title { font-size: 20px; font-weight: 700; }
+.oxm-account-modal .modal-content { padding-bottom: 0; }
+.oxm-form-error { display: none; margin: 12px 0 0; padding: 9px 11px; border-radius: var(--radius-s); color: var(--text-error); background: color-mix(in srgb, var(--background-modifier-error) 15%, transparent); font-size: var(--font-ui-small); }
+.oxm-form-error.is-visible { display: block; }
+.oxm-account-modal .setting-item-control input[type="text"], .oxm-account-modal .setting-item-control input[type="email"] { min-width: 250px; }
+.oxm-server-row .setting-item-control { display: grid; grid-template-columns: minmax(180px, 1fr) 82px; gap: 7px; }
+.oxm-server-row .setting-item-control input { width: 100%; min-width: 0 !important; }
+.oxm-server-row .setting-item-control input[type="number"] { text-align: center; }
+.oxm-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin: 18px 0 0; padding: 14px 0 0; border-top: 1px solid var(--background-modifier-border); }
+.modal.oxm-compose-modal { width: min(700px, calc(100vw - 48px)); --modal-width: 700px; }
+.oxm-compose-modal .setting-item { align-items: flex-start; }
+.oxm-compose-modal .setting-item-control { width: min(480px, 70%); }
+.oxm-compose-modal input, .oxm-compose-modal textarea { width: 100%; }
+.oxm-compose-modal textarea { min-height: 240px; resize: vertical; }
+.oxm-compose-attachments { margin-top: 12px; padding: 12px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); background: var(--background-secondary); }
+.oxm-compose-attachments-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; }
+.oxm-file-input { display: none; }
+.oxm-compose-attachment-list { display: grid; gap: 5px; margin-top: 10px; }
+.oxm-compose-attachment-empty { color: var(--text-muted); font-size: var(--font-ui-small); }
+.oxm-compose-attachment { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto 28px; align-items: center; gap: 8px; min-height: 34px; padding: 3px 5px 3px 8px; border-radius: var(--radius-s); background: var(--background-primary); }
+.oxm-compose-attachment > svg { color: var(--text-muted); }
+.oxm-compose-attachment-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oxm-compose-attachment-size { color: var(--text-muted); font-size: var(--font-ui-smaller); }
+.oxm-attachments { margin: 14px 0; padding: 12px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); background: var(--background-secondary); }
+.oxm-attachments-title { margin-bottom: 8px; color: var(--text-muted); font-size: var(--font-ui-small); font-weight: 600; }
+.oxm-attachment-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 7px; }
+.oxm-attachment { display: grid; grid-template-columns: 30px minmax(0, 1fr) 30px; align-items: center; gap: 8px; min-height: 48px; padding: 6px; border-radius: var(--radius-s); background: var(--background-primary); }
+.oxm-attachment-icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-s); color: var(--text-muted); background: var(--background-secondary); }
+.oxm-attachment-copy { min-width: 0; }
+.oxm-attachment-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--font-ui-small); font-weight: 600; }
+.oxm-attachment-meta { overflow: hidden; margin-top: 2px; color: var(--text-muted); font-size: var(--font-ui-smaller); text-overflow: ellipsis; white-space: nowrap; }
+.oxm-mailbox-picker { display: grid; gap: 6px; max-height: 420px; overflow: auto; }
+.oxm-mailbox-picker button { justify-content: flex-start; text-align: left; }
+.modal.oxm-folder-manager-modal { width: min(680px, calc(100vw - 48px)); max-height: min(780px, calc(100vh - 48px)); --modal-width: 680px; }
+.oxm-folder-manager-modal .modal-content { display: flex; flex-direction: column; min-height: 0; padding-bottom: 0; }
+.oxm-folder-manager-intro { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 4px 0 18px; }
+.oxm-folder-manager-heading { margin-bottom: 3px; font-weight: 650; }
+.oxm-folder-manager-description { max-width: 440px; color: var(--text-muted); font-size: var(--font-ui-small); line-height: 1.4; }
+.oxm-folder-manager-summary { display: flex; gap: 8px; padding: 8px 2px; color: var(--text-muted); font-size: var(--font-ui-smaller); }
+.oxm-folder-manager-summary span + span::before { content: "·"; margin-right: 8px; }
+.oxm-folder-manager-list { min-height: 0; overflow: auto; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-m); background: var(--background-primary); }
+.oxm-folder-manager-row { min-height: 66px; display: grid; grid-template-columns: 34px minmax(0, 1fr) auto 32px; align-items: center; gap: 10px; padding: 9px 10px; border-bottom: 1px solid var(--background-modifier-border); }
+.oxm-folder-manager-row:last-child { border-bottom: 0; }
+.oxm-folder-manager-row:hover { background: var(--background-modifier-hover); }
+.oxm-folder-manager-row.is-hidden .oxm-folder-manager-icon, .oxm-folder-manager-row.is-hidden .oxm-folder-manager-copy { opacity: .55; }
+.oxm-folder-manager-icon { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-s); color: var(--text-muted); background: var(--background-secondary); }
+.oxm-folder-manager-icon svg { width: 18px; height: 18px; }
+.oxm-folder-manager-copy { min-width: 0; }
+.oxm-folder-manager-name-line { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.oxm-folder-manager-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.oxm-folder-manager-metadata { display: flex; gap: 8px; min-width: 0; margin-top: 3px; color: var(--text-muted); font-size: var(--font-ui-smaller); }
+.oxm-folder-manager-metadata span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oxm-folder-manager-metadata span + span::before { content: "·"; margin-right: 8px; }
+.oxm-folder-manager-badge { flex: 0 0 auto; padding: 2px 6px; border-radius: 999px; color: var(--text-muted); background: var(--background-secondary); font-size: 10px; font-weight: 600; }
+.oxm-folder-visibility { display: inline-flex; align-items: center; gap: 6px; min-width: 92px; justify-content: center; padding: 5px 9px; border: 1px solid var(--background-modifier-border); border-radius: var(--radius-s); color: var(--text-muted); background: transparent; box-shadow: none; font-size: var(--font-ui-smaller); }
+.oxm-folder-visibility:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+.oxm-folder-visibility.is-active { color: var(--text-normal); }
+.oxm-folder-visibility svg { width: 15px; height: 15px; }
+.oxm-folder-manager-footer { position: sticky; bottom: 0; display: flex; justify-content: flex-end; gap: 8px; flex: 0 0 auto; margin-top: 14px; padding: 14px 0; background: var(--background-primary); }
+.oxm-button-icon { display: inline-flex; margin-right: 6px; vertical-align: middle; }
+.oxm-button-icon svg { width: 16px; height: 16px; }
+.modal.oxm-mail-modal { width: min(1600px, calc(100vw - 72px)); height: min(960px, calc(100vh - 72px)); max-width: calc(100vw - 72px); max-height: calc(100vh - 72px); --modal-width: min(1600px, calc(100vw - 72px)); --modal-height: min(960px, calc(100vh - 72px)); --modal-max-width: calc(100vw - 72px); --modal-max-height: calc(100vh - 72px); }
+.oxm-mail-modal .modal-header { position: absolute; top: 0; right: 0; z-index: 6; min-height: 0; padding: 0; }
+.oxm-mail-modal .modal-close-button { top: 7px; right: 8px; z-index: 7; }
+.oxm-mail-modal .modal-title { display: none; }
+.oxm-mail-modal .modal-content { height: 100%; padding: 0; overflow: hidden; }
+.oxm-mail-modal .oxm-layout { flex: 1; }
+.oxm-bottom-bar { min-height: 50px; flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 7px 14px; border-top: 1px solid var(--oxm-border); background: var(--background-primary); }
+@media (max-width: 900px) { .oxm-layout { grid-template-columns: 170px minmax(260px, 1fr); } .oxm-reader { display: none; } }
+@media (max-width: 600px) { .oxm-account-meta { grid-template-columns: 1fr; } .oxm-account-status { display: none; } .oxm-modal-actions { padding-inline: 16px; } .oxm-folder-manager-intro { align-items: flex-start; flex-direction: column; gap: 12px; } .oxm-folder-manager-row { grid-template-columns: 34px minmax(0, 1fr) 32px; } .oxm-folder-visibility { grid-column: 2 / 4; grid-row: 2; justify-self: start; } }
+@media (prefers-reduced-motion: reduce) { .oxm-reader-progress-value, .oxm-skeleton-line, .oxm-reader-spinner { animation: none !important; transition: none; } }
