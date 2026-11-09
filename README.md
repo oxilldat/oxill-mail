@@ -34,9 +34,16 @@ OAuth and local full-text indexing are not implemented yet. Remote images in HTM
 
 Oxill Mail is currently distributed as an Early Access build and is not yet listed in the Obsidian community directory.
 
+Install with BRAT:
+
+1. Install and enable the **BRAT** community plugin.
+2. Choose **Add beta plugin** in BRAT settings.
+3. Enter `https://github.com/oxilldat/oxill-mail`.
+4. Enable **Oxill Mail** under **Settings → Community plugins**.
+
 Manual installation:
 
-1. Download the release archive.
+1. Download the archive from the [0.1.0 Early Access release](https://github.com/oxilldat/oxill-mail/releases/tag/0.1.0).
 2. Extract `main.js`, `manifest.json`, and `styles.css` into `<vault>/.obsidian/plugins/oxill-mail/`.
 3. Restart Obsidian or reload community plugins.
 4. Enable **Oxill Mail** under **Settings → Community plugins**.
